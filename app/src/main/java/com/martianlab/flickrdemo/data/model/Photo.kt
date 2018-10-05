@@ -3,7 +3,7 @@ package com.martianlab.flickrdemo.data.model
 import com.google.gson.annotations.SerializedName
 
 data class Photo(
-    @SerializedName("id") var id:Int,
+    @SerializedName("id") var id:Long,
     @SerializedName("owner") var owner:String,
     @SerializedName("secret") var secret:String,
     @SerializedName("server") var server:String,

@@ -5,6 +5,7 @@ import android.content.Context
 import com.martianlab.flickrdemo.BuildConfig
 import com.martianlab.flickrdemo.data.FlickrDataRepository
 import com.martianlab.flickrdemo.data.executor.JobExecutor
+import com.martianlab.flickrdemo.data.mapper.FlickrPhotoMapper
 import com.martianlab.flickrdemo.data.repository.FlickrRemote
 import com.martianlab.flickrdemo.data.source.FlickrDataStoreFactory
 import com.martianlab.flickrdemo.domain.executor.PostExecutionThread

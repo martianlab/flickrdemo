@@ -24,16 +24,10 @@ abstract class SingleUseCase<T, in Params> constructor(
         addDisposable(single.subscribeWith(singleObserver))
     }
 
-    /**
-     * Dispose from current [CompositeDisposable].
-     */
     fun dispose() {
         if (!disposables.isDisposed) disposables.dispose()
     }
 
-    /**
-     * Dispose from current [CompositeDisposable].
-     */
     private fun addDisposable(disposable: Disposable) {
         disposables.add(disposable)
     }

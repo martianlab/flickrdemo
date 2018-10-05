@@ -2,7 +2,8 @@ package com.martianlab.flickrdemo.presentation.main
 
 import com.martianlab.flickrdemo.presentation.BasePresenter
 import com.martianlab.flickrdemo.presentation.BaseView
-import com.martianlab.flickrdemo.data.model.Photos
+import com.martianlab.flickrdemo.domain.model.FlickrPhoto
+import com.martianlab.flickrdemo.domain.model.FlickrPhotoList
 
 interface MainFragmentContract {
 
@@ -12,7 +13,7 @@ interface MainFragmentContract {
 
         fun hideProgress()
 
-        fun refreshMainPage(data: Photos)
+        fun refreshMainPage(data: List<FlickrPhoto>)
 
         fun showErrorState()
 
@@ -25,7 +26,7 @@ interface MainFragmentContract {
     }
 
     interface Presenter : BasePresenter {
-        fun retrieveMainPage()
+        fun loadNextPage(flickrPhotoList: FlickrPhotoList?)
     }
 
 }

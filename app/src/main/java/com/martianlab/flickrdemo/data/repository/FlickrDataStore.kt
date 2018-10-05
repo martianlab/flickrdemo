@@ -1,8 +1,8 @@
 package com.martianlab.flickrdemo.data.repository
 
-import com.martianlab.flickrdemo.data.model.Photos
+import com.martianlab.flickrdemo.domain.model.FlickrPhoto
 import io.reactivex.Single
 
 interface FlickrDataStore {
-    fun searchPhotos(apiKey:String, text:String, page:Int, perpage:Int): Single<Photos>
+    fun searchPhotos(apiKey:String, text:String, page:Int, perpage:Int): Single<List<FlickrPhoto>>
 }
