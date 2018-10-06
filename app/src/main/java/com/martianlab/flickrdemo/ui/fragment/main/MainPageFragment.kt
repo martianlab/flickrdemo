@@ -34,6 +34,7 @@ class MainPageFragment: Fragment(), MainFragmentContract.View{
     private val flickrPhotoGrid by lazy {
         flickr_photo_list.apply {
             setHasFixedSize(true)
+            //TODO: Подгонять сетку под экран
             val linearLayout = GridLayoutManager(context, 5)
             layoutManager = linearLayout
 
@@ -74,9 +75,8 @@ class MainPageFragment: Fragment(), MainFragmentContract.View{
         flickrListPresenter = presenter
     }
 
-    override fun onStart() {
-        super.onStart()
-        flickrPhotoList = FlickrPhotoList( ArrayList(),"котята", 1, 40)
+    fun doSearch(text:String? = ""){
+        flickrPhotoList = FlickrPhotoList( ArrayList(),text, 1, 40)
         flickrListPresenter.loadNextPage(flickrPhotoList)
     }
 
