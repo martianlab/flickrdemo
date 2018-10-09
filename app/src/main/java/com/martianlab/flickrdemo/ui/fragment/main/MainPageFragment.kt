@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,16 +19,19 @@ import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_mainpage.*
 
-class MainPageFragment: Fragment(), MainFragmentContract.View{
+class MainPageFragment: Fragment(), MainFragmentContract.View, OnPhotoClickListener{
 
     @Inject lateinit var flickrListPresenter: MainFragmentContract.Presenter
 
     private var flickrPhotoList: FlickrPhotoList? = null
+    private lateinit var query:String
 
     companion object {
         private val KEY_PHOTO_LIST = "photoList"
-        fun newInstance(): MainPageFragment {
-            return MainPageFragment()
+        fun newInstance(query:String = ""): MainPageFragment {
+            var f = MainPageFragment()
+            f.query = query
+            return f
         }
     }
 
@@ -35,10 +39,17 @@ class MainPageFragment: Fragment(), MainFragmentContract.View{
         flickr_photo_list.apply {
             setHasFixedSize(true)
             //TODO: Подгонять сетку под экран
-            val linearLayout = GridLayoutManager(context, 5)
-            layoutManager = linearLayout
+            val layout = GridLayoutManager(context, 5)
+            layoutManager = layout
 
-            addOnScrollListener(InfiniteScrollListener({ flickrListPresenter.loadNextPage(flickrPhotoList) }, linearLayout))
+            addOnScrollListener(InfiniteScrollListener({ flickrListPresenter.loadNextPage(flickrPhotoList) }, layout))
+        }
+    }
+
+    override fun onStart(){
+        super.onStart()
+        if( !TextUtils.isEmpty(query) ){
+            doSearch(query)
         }
     }
 
@@ -62,8 +73,13 @@ class MainPageFragment: Fragment(), MainFragmentContract.View{
 
     private fun initAdapter() {
         if (flickrPhotoGrid.adapter == null) {
-            flickrPhotoGrid.adapter = PhotoGridAdapter()
+            flickrPhotoGrid.adapter = PhotoGridAdapter(this)
         }
+    }
+
+    override fun OnPhotoClick(urlPhoto: String) {
+        val bigPhotoFragment = BigPhotoFragment.newInstance(urlPhoto)
+        bigPhotoFragment.show( childFragmentManager, bigPhotoFragment.javaClass.simpleName )
     }
 
 
@@ -76,7 +92,9 @@ class MainPageFragment: Fragment(), MainFragmentContract.View{
     }
 
     fun doSearch(text:String? = ""){
-        flickrPhotoList = FlickrPhotoList( ArrayList(),text, 1, 40)
+        query = text?:""
+        (flickrPhotoGrid.adapter as PhotoGridAdapter).clear()
+        flickrPhotoList = FlickrPhotoList( ArrayList(),query, 0, 40)
         flickrListPresenter.loadNextPage(flickrPhotoList)
     }
 

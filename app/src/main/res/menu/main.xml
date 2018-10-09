@@ -4,7 +4,7 @@
 
     <item android:id="@+id/search"
         android:title="@string/search_label"
-        com.brianco.andypedia:showAsAction="always|collapseActionView"
+        com.brianco.andypedia:showAsAction="always"
         com.brianco.andypedia:actionViewClass="android.support.v7.widget.SearchView"
         com.brianco.andypedia:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
 </menu>

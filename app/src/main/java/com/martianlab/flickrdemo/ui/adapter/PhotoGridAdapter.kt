@@ -5,12 +5,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.martianlab.flickrdemo.data.model.Photo
 import com.martianlab.flickrdemo.domain.model.FlickrPhoto
+import com.martianlab.flickrdemo.ui.fragment.main.OnPhotoClickListener
 import java.util.*
 
-class PhotoGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PhotoGridAdapter(
+    private var listener:OnPhotoClickListener
+
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
     private var items: ArrayList<ViewType>
+
     private val loadingItem = object : ViewType {
         override fun getViewType() = AdapterConstants.LOADING
     }
@@ -19,7 +24,6 @@ class PhotoGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         delegateAdapters.put(AdapterConstants.PHOTO, PhotoDelegateAdapter())
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
         items = ArrayList()
-        items.add(loadingItem)
     }
 
     override fun getItemCount() = items.size
@@ -29,20 +33,29 @@ class PhotoGridAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position])
+        delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, this.items[position], listener)
     }
 
     override fun getItemViewType(position: Int): Int {
         return this.items.get(position).getViewType()
     }
 
+    fun clear(){
+        items.clear()
+        notifyDataSetChanged()
+    }
+
     fun addPhotos(photos: List<FlickrPhoto>) {
-        val initPosition = items.size - 1
-        items.removeAt(initPosition)
-        notifyItemRemoved(initPosition)
+        var initPosition = items.size - 1
+        if( items.size > 0 ) {
+            items.removeAt(initPosition)
+            notifyItemRemoved(initPosition)
+        } else {
+            initPosition = 0
+        }
         items.addAll(photos)
         items.add(loadingItem)
-        notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
+        notifyItemRangeChanged(initPosition, items.size + 1 )
     }
 
     fun clearAndAddPhotos(photos: List<FlickrPhoto>) {

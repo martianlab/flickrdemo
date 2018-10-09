@@ -49,7 +49,8 @@ data class FlickrPhoto(
     var ispublic:Int,
     var isfriend:Int,
     var isfamily:Int,
-    var url_sq:String
+    var url_sq:String,
+    var url_z:String
 ) : ViewType, Parcelable {
 
     companion object {
@@ -67,6 +68,7 @@ data class FlickrPhoto(
         parcelIn.readInt(),
         parcelIn.readInt(),
         parcelIn.readInt(),
+        parcelIn.readString(),
         parcelIn.readString()
     )
 
@@ -81,6 +83,7 @@ data class FlickrPhoto(
         dest.writeInt(isfriend)
         dest.writeInt(isfamily)
         dest.writeString(url_sq)
+        dest.writeString(url_z)
     }
 
     override fun describeContents() = 0
