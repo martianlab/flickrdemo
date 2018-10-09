@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Search
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         SearchRecentSuggestions(this, FlickrSuggestionProvider.AUTHORITY, FlickrSuggestionProvider.MODE).saveRecentQuery(query, null)
-        mainPageFragment.doSearch(query)
+        mainPageFragment.doSearch(query?:"")
         return true
     }
 

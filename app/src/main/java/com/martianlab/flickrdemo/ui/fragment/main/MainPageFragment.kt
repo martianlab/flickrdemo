@@ -24,7 +24,7 @@ class MainPageFragment: Fragment(), MainFragmentContract.View, OnPhotoClickListe
     @Inject lateinit var flickrListPresenter: MainFragmentContract.Presenter
 
     private var flickrPhotoList: FlickrPhotoList? = null
-    private lateinit var query:String
+    private var query:String? = null
 
     companion object {
         private val KEY_PHOTO_LIST = "photoList"
@@ -37,11 +37,11 @@ class MainPageFragment: Fragment(), MainFragmentContract.View, OnPhotoClickListe
 
     private val flickrPhotoGrid by lazy {
         flickr_photo_list.apply {
-            setHasFixedSize(true)
+            //setHasFixedSize(true)
             //TODO: Подгонять сетку под экран
             // можно брать значения из ресурсов <integer
             // можно считать через displaymetrics
-            val layout = GridLayoutManager(context, 5)
+            val layout = GridLayoutManager(context, resources.getInteger(R.integer.grid_num_columns))
             layoutManager = layout
 
             addOnScrollListener(InfiniteScrollListener({ flickrListPresenter.loadNextPage(flickrPhotoList) }, layout))
@@ -50,7 +50,7 @@ class MainPageFragment: Fragment(), MainFragmentContract.View, OnPhotoClickListe
 
     override fun onStart(){
         super.onStart()
-        if( !TextUtils.isEmpty(query) ){
+        if( !TextUtils.isEmpty(query?:"") ){
             doSearch(query)
         }
     }
