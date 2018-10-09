@@ -1,5 +1,6 @@
 package com.martianlab.flickrdemo.presentation.main
 
+import android.util.Log
 import com.martianlab.flickrdemo.data.model.PhotoSearch
 import com.martianlab.flickrdemo.domain.interactor.SingleUseCase
 import com.martianlab.flickrdemo.domain.model.FlickrPhoto
@@ -55,6 +56,7 @@ class MainFragmentPresenter @Inject constructor(val mainPageFragment: MainFragme
         }
 
         override fun onError(exception: Throwable) {
+            Log.e(javaClass.simpleName, exception.message)
             mainPageFragment.hideEmptyState()
             mainPageFragment.showErrorState()
         }

@@ -12,6 +12,6 @@ data class Photo(
     @SerializedName("ispublic") var ispublic:Int,
     @SerializedName("isfriend") var isfriend:Int,
     @SerializedName("isfamily") var isfamily:Int,
-    @SerializedName("url_sq") var url_sq:String,
-    @SerializedName("url_z") var url_z:String
+    @SerializedName("url_sq") var url_sq:String?=null,
+    @SerializedName("url_z") var url_z:String?=null
 )

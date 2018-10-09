@@ -49,8 +49,8 @@ data class FlickrPhoto(
     var ispublic:Int,
     var isfriend:Int,
     var isfamily:Int,
-    var url_sq:String,
-    var url_z:String
+    var url_sq:String? = null,
+    var url_z:String? = null
 ) : ViewType, Parcelable {
 
     companion object {

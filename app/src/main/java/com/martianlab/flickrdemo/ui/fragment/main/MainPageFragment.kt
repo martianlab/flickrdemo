@@ -39,6 +39,8 @@ class MainPageFragment: Fragment(), MainFragmentContract.View, OnPhotoClickListe
         flickr_photo_list.apply {
             setHasFixedSize(true)
             //TODO: Подгонять сетку под экран
+            // можно брать значения из ресурсов <integer
+            // можно считать через displaymetrics
             val layout = GridLayoutManager(context, 5)
             layoutManager = layout
 

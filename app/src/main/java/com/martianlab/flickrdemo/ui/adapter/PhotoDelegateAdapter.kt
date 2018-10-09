@@ -24,8 +24,8 @@ class PhotoDelegateAdapter : ViewTypeDelegateAdapter {
             parent.inflate(R.layout.photo_item)) {
 
         fun bind(item: FlickrPhoto, listener:OnPhotoClickListener) = with(itemView) {
-            flickr_photo.loadImg(item.url_sq)
-            flickr_photo.setOnClickListener { listener.OnPhotoClick(item.url_z) }
+            flickr_photo.loadImg(item.url_sq?:"")
+            flickr_photo.setOnClickListener { listener.OnPhotoClick(item.url_z?:"") }
         }
     }
 }
