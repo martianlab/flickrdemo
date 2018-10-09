@@ -1,8 +1,5 @@
 package com.martianlab.flickrdemo.presentation.factory
 
-import com.martianlab.flickrdemo.data.model.Photo
-import com.martianlab.flickrdemo.data.model.Photos
-import com.martianlab.flickrdemo.data.model.PhotosList
 import com.martianlab.flickrdemo.domain.model.FlickrPhoto
 import com.martianlab.flickrdemo.remote.factory.RandomDataFactory.Factory.randomImageUrl
 import com.martianlab.flickrdemo.remote.factory.RandomDataFactory.Factory.randomInt

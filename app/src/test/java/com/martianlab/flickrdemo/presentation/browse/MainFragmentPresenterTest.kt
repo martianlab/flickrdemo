@@ -31,7 +31,6 @@ class MainFragmentPresenterTest {
         mainFragmentPresenter = MainFragmentPresenter(mockMainFragmentView, mockMainPageGet)
     }
 
-    //<editor-fold desc="Retrieve Bufferoos">
     @Test
     fun loadPhotosHidesErrorState() {
         mainFragmentPresenter.loadNextPage(FlickrPhotoList(ArrayList(), "test", 0, 40))
@@ -104,6 +103,5 @@ class MainFragmentPresenterTest {
         captor.firstValue.onError(RuntimeException())
         verify(mockMainFragmentView).hideEmptyState()
     }
-    //</editor-fold>
 
 }
